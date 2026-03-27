@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\env\ServiceDefaults\ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Application.Wolverine\Application.Wolverine.csproj" />
     <ProjectReference Include="..\Infrastructure.Db\Infrastructure.Db.csproj" />
   </ItemGroup>
 
