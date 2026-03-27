@@ -1,6 +1,10 @@
+using Application.Wolverine;
+
 using Ardalis.Specification;
 
 using Infrastructure.Db;
+
+using JasperFx;
 
 using Rest.Wolverine.Endpoints;
 
@@ -13,11 +17,15 @@ builder.AddServiceDefaults();
 builder.AddAzureNpgsqlDbContext<ApplicationContext>("database");
 
 builder.Services
-    .AddWolverine(o => o.UseFluentValidation())
+    .AddWolverine(o =>
+    {
+        //o.Discovery.IncludeAssembly(typeof(IApplication).Assembly);
+        o.ApplicationAssembly = typeof(IApplication).Assembly;
+        o.Durability.Mode = DurabilityMode.MediatorOnly;
+        o.UseFluentValidation();
+    })
     .AddTransient(typeof(IRepositoryBase<>), typeof(Repository<>))
     .AddOpenApi();
-
-builder.UseWolverine(o => o.Durability.Mode = DurabilityMode.MediatorOnly);
 
 var app = builder.Build();
 
@@ -27,4 +35,4 @@ app
 
 app.UseHttpsRedirection();
 
-await app.RunAsync();
+await app.RunJasperFxCommands(args);

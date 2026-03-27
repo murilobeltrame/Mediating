@@ -1,6 +1,18 @@
-﻿using Domain.TodoAggregate.Specifications;
+﻿using Ardalis.Specification;
+
+using Domain.TodoAggregate;
+using Domain.TodoAggregate.Specifications;
 
 namespace Application.Wolverine.TodoAggregate.Queries;
+
+public static class FetchTodosByFilterQueryHandler
+{
+    public static async Task<IEnumerable<SimplerTodo>> Handle(
+       FetchTodosByFilterQuery request,
+       IRepositoryBase<Todo> repository,
+       CancellationToken cancellationToken) =>
+       await repository.ListAsync(request.ToSpecification(), cancellationToken);
+}
 
 public class FetchTodosByFilterQuery
 {
