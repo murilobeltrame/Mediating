@@ -1,0 +1,52 @@
+@Rest.Wolverine_HostAddress = http://localhost:5065
+
+### Fetch all Todos
+
+GET {{Rest.Wolverine_HostAddress}}/todos/
+Accept: application/json
+
+### Create a Todo
+# @name CreateTodo
+POST {{Rest.Wolverine_HostAddress}}/todos/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "description": "Example Todo"
+}
+
+###
+
+@id = {{CreateTodo.response.body.$.id}}
+
+
+### Get the Todo
+# @anme GetTodo
+GET {{Rest.Wolverine_HostAddress}}/todos/{{id}}
+Accept: application/json
+
+### Update the Todo
+# @name UpdateTodo
+PUT {{Rest.Wolverine_HostAddress}}/todos/{{id}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "description": "Example now updated with a due",
+  "dueDate": "2030-12-31"
+}
+
+### Complete the Todo
+# @name CompleteTodo
+PATCH {{Rest.Wolverine_HostAddress}}/todos/{{id}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "completedAt": "2024-12-31"
+}
+
+### Remove the Todo
+# @name DeleteTodo
+DELETE {{Rest.Wolverine_HostAddress}}/todos/{{id}}
+Accept: application/json

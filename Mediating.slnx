@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/env/">
+    <Project Path="env/AppHost/AppHost.csproj" />
+    <Project Path="env/ServiceDefaults/ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Application.Mediatr/Application.Mediatr.csproj" Id="b4eef86b-23e5-4bd6-b2e4-d0b3b6c19f5c" />
+    <Project Path="src/Application.Wolverine/Application.Wolverine.csproj" Id="ebba7d9a-3019-4098-9482-17e425eb7f1b" />
+    <Project Path="src/Domain/Domain.csproj" />
+    <Project Path="src/Infrastructure.Db/Infrastructure.Db.csproj" />
+    <Project Path="src/Rest.Mediatr/Rest.Mediatr.csproj" />
+    <Project Path="src/Rest.Wolverine/Rest.Wolverine.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tools/">
+    <Project Path="tools/Migrations.Worker/Migrations.Worker.csproj" />
+  </Folder>
+</Solution>
