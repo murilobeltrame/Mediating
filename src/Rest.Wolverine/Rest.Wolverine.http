@@ -1,13 +1,13 @@
-@Rest.Wolverine_HostAddress = http://localhost:5065
+@Rest_Wolverine_HostAddress = http://localhost:5065
 
 ### Fetch all Todos
 
-GET {{Rest.Wolverine_HostAddress}}/todos/
+GET {{Rest_Wolverine_HostAddress}}/todos/
 Accept: application/json
 
 ### Create a Todo
 # @name CreateTodo
-POST {{Rest.Wolverine_HostAddress}}/todos/
+POST {{Rest_Wolverine_HostAddress}}/todos/
 Accept: application/json
 Content-Type: application/json
 
@@ -22,12 +22,12 @@ Content-Type: application/json
 
 ### Get the Todo
 # @anme GetTodo
-GET {{Rest.Wolverine_HostAddress}}/todos/{{id}}
+GET {{Rest_Wolverine_HostAddress}}/todos/{{id}}
 Accept: application/json
 
 ### Update the Todo
 # @name UpdateTodo
-PUT {{Rest.Wolverine_HostAddress}}/todos/{{id}}
+PUT {{Rest_Wolverine_HostAddress}}/todos/{{id}}
 Accept: application/json
 Content-Type: application/json
 
@@ -38,7 +38,7 @@ Content-Type: application/json
 
 ### Complete the Todo
 # @name CompleteTodo
-PATCH {{Rest.Wolverine_HostAddress}}/todos/{{id}}
+PATCH {{Rest_Wolverine_HostAddress}}/todos/{{id}}
 Accept: application/json
 Content-Type: application/json
 
@@ -48,5 +48,5 @@ Content-Type: application/json
 
 ### Remove the Todo
 # @name DeleteTodo
-DELETE {{Rest.Wolverine_HostAddress}}/todos/{{id}}
+DELETE {{Rest_Wolverine_HostAddress}}/todos/{{id}}
 Accept: application/json

@@ -1,13 +1,13 @@
-@Rest.Mediatr_HostAddress = http://localhost:5099
+@Rest_Mediatr_HostAddress = http://localhost:5099
 
 ### Fetch all Todos
 
-GET {{Rest.Mediatr_HostAddress}}/todos/
+GET {{Rest_Mediatr_HostAddress}}/todos/
 Accept: application/json
 
 ### Create a Todo
 # @name CreateTodo
-POST {{Rest.Mediatr_HostAddress}}/todos/
+POST {{Rest_Mediatr_HostAddress}}/todos/
 Accept: application/json
 Content-Type: application/json
 
@@ -22,12 +22,12 @@ Content-Type: application/json
 
 ### Get the Todo
 # @anme GetTodo
-GET {{Rest.Mediatr_HostAddress}}/todos/{{id}}
+GET {{Rest_Mediatr_HostAddress}}/todos/{{id}}
 Accept: application/json
 
 ### Update the Todo
 # @name UpdateTodo
-PUT {{Rest.Mediatr_HostAddress}}/todos/{{id}}
+PUT {{Rest_Mediatr_HostAddress}}/todos/{{id}}
 Accept: application/json
 Content-Type: application/json
 
@@ -38,7 +38,7 @@ Content-Type: application/json
 
 ### Complete the Todo
 # @name CompleteTodo
-PATCH {{Rest.Mediatr_HostAddress}}/todos/{{id}}
+PATCH {{Rest_Mediatr_HostAddress}}/todos/{{id}}
 Accept: application/json
 Content-Type: application/json
 
@@ -48,5 +48,5 @@ Content-Type: application/json
 
 ### Remove the Todo
 # @name DeleteTodo
-DELETE {{Rest.Mediatr_HostAddress}}/todos/{{id}}
+DELETE {{Rest_Mediatr_HostAddress}}/todos/{{id}}
 Accept: application/json
