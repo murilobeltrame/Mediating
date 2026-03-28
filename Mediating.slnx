@@ -11,7 +11,11 @@
     <Project Path="src/Rest.Mediatr/Rest.Mediatr.csproj" />
     <Project Path="src/Rest.Wolverine/Rest.Wolverine.csproj" />
   </Folder>
-  <Folder Name="/tests/" />
+  <Folder Name="/tests/">
+    <Project Path="tests/Domain.Tests/Domain.Tests.csproj" />
+    <Project Path="tests/Rest.Mediatr.Tests/Rest.Mediatr.Tests.csproj" />
+    <Project Path="tests/Rest.Wolverine.Tests/Rest.Wolverine.Tests.csproj" />
+  </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/Migrations.Worker/Migrations.Worker.csproj" />
   </Folder>
