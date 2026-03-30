@@ -6,7 +6,7 @@ using FluentValidation;
 
 namespace Domain.TodoAggregate.Commands;
 
-internal class CompleteTodoCommandValidator : AbstractValidator<CompleteTodoCommand>
+public class CompleteTodoCommandValidator : AbstractValidator<CompleteTodoCommand>
 {
     public CompleteTodoCommandValidator(IRepositoryBase<Todo> repository)
     {

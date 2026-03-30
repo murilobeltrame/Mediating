@@ -2,7 +2,7 @@
 
 namespace Domain.TodoAggregate.Commands;
 
-internal class CreateTodoCommandValidator : AbstractValidator<CreateTodoCommand>
+public class CreateTodoCommandValidator : AbstractValidator<CreateTodoCommand>
 {
     public CreateTodoCommandValidator()
     {

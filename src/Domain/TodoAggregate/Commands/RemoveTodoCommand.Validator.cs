@@ -6,7 +6,7 @@ using FluentValidation;
 
 namespace Domain.TodoAggregate.Commands;
 
-internal class RemoveTodoCommandValidator : AbstractValidator<RemoveTodoCommand>
+public class RemoveTodoCommandValidator : AbstractValidator<RemoveTodoCommand>
 {
     public RemoveTodoCommandValidator(IRepositoryBase<Todo> repository)
     {
