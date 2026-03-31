@@ -1,4 +1,3 @@
-using Domain.TodoAggregate;
 using Domain.TodoAggregate.Specifications;
 
 namespace Domain.Tests;
@@ -7,20 +6,6 @@ public class TodosByFilterSpecificationTests
 {
     [Fact]
     public void TodosByFilterSpecification_WithDefaultFilters_CreatesSpecification()
-    {
-        // Arrange
-        var page = 1;
-        var pageSize = 10;
-
-        // Act
-        var spec = new TodosByFilterSpecification(page, pageSize, null, null, null, null);
-
-        // Assert
-        Assert.NotNull(spec);
-    }
-
-    [Fact]
-    public void TodosByFilterSpecification_FirstPage_CreatesCorrectly()
     {
         // Arrange
         var page = 1;
@@ -113,20 +98,6 @@ public class TodosByFilterSpecificationTests
     }
 
     [Fact]
-    public void TodosByFilterSpecification_IsProperlyConstructed()
-    {
-        // Arrange
-        var page = 1;
-        var pageSize = 10;
-
-        // Act
-        var spec = new TodosByFilterSpecification(page, pageSize, null, null, null, null);
-
-        // Assert
-        Assert.NotNull(spec);
-    }
-
-    [Fact]
     public void TodosByFilterSpecification_WithAllFilters_CombinesCorrectly()
     {
         // Arrange
@@ -193,18 +164,6 @@ public class TodosByFilterSpecificationTests
 
         // Assert
         Assert.NotNull(spec);
-    }
-
-    [Fact]
-    public void TodosByFilterSpecification_WithNullDescription_CreatesCorrectly()
-    {
-        // Arrange
-        var spec1 = new TodosByFilterSpecification(1, 10, null, null, null, null);
-        var spec2 = new TodosByFilterSpecification(1, 10, "Something", null, null, null);
-
-        // Act & Assert
-        Assert.NotNull(spec1);
-        Assert.NotNull(spec2);
     }
 
     [Fact]

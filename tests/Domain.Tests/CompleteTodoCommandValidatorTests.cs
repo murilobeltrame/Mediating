@@ -1,8 +1,11 @@
 using Ardalis.Specification;
+
 using Domain.TodoAggregate;
 using Domain.TodoAggregate.Commands;
 using Domain.TodoAggregate.Specifications;
+
 using FluentValidation.TestHelper;
+
 using NSubstitute;
 
 namespace Domain.Tests;
@@ -57,7 +60,7 @@ public class CompleteTodoCommandValidatorTests
 
         // Assert
         result.ShouldHaveValidationErrorFor(c => c.Id);
-        Assert.Contains("Todo with the specified Id does not exist.", 
+        Assert.Contains("Todo with the specified Id does not exist.",
             result.Errors.Select(e => e.ErrorMessage));
     }
 
@@ -150,8 +153,8 @@ public class CompleteTodoCommandValidatorTests
 
         // Assert
         Assert.True(result.Errors.Count >= 2);
-        Assert.NotEmpty(result.Errors.Where(e => e.PropertyName == nameof(CompleteTodoCommand.Id)));
-        Assert.NotEmpty(result.Errors.Where(e => e.PropertyName == nameof(CompleteTodoCommand.CompletedAt)));
+        Assert.Contains(result.Errors, e => e.PropertyName == nameof(CompleteTodoCommand.Id));
+        Assert.Contains(result.Errors, e => e.PropertyName == nameof(CompleteTodoCommand.CompletedAt));
     }
 
     [Fact]
