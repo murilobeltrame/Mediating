@@ -484,3 +484,7 @@ $RECYCLE.BIN/
 # Discarding Wolverine generated files
 
 **/Internal/Generated/
+
+# Duscarding Stryker results
+
+**/StrykerOutput/
