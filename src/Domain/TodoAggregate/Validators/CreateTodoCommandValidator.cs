@@ -1,6 +1,8 @@
-﻿using FluentValidation;
+﻿using Domain.TodoAggregate.Commands;
 
-namespace Domain.TodoAggregate.Commands;
+using FluentValidation;
+
+namespace Domain.TodoAggregate.Validators;
 
 public class CreateTodoCommandValidator : AbstractValidator<CreateTodoCommand>
 {

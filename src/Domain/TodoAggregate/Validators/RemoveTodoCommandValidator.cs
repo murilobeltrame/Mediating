@@ -1,10 +1,11 @@
 ﻿using Ardalis.Specification;
 
+using Domain.TodoAggregate.Commands;
 using Domain.TodoAggregate.Specifications;
 
 using FluentValidation;
 
-namespace Domain.TodoAggregate.Commands;
+namespace Domain.TodoAggregate.Validators;
 
 public class RemoveTodoCommandValidator : AbstractValidator<RemoveTodoCommand>
 {

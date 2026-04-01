@@ -4,7 +4,7 @@ namespace Domain.TodoAggregate;
 
 public class Todo
 {
-    public Guid Id { get; }
+    public Guid Id { get; private set; }
     public string Description { get; private set; }
     public DateTime? DueDate { get; private set; }
     public DateTime? CompletedAt { get; private set; }

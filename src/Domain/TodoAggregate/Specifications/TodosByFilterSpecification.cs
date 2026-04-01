@@ -7,14 +7,22 @@ public class TodosByFilterSpecification : Specification<Todo, SimplerTodo>
     public TodosByFilterSpecification(
         int page,
         int pageSize,
-        string? description,
-        DateTime? fromDueDate,
-        DateTime? toDueDate,
-        bool? complete)
+        string? description = null,
+        DateTime? fromDueDate = null,
+        DateTime? toDueDate = null,
+        bool? complete = null)
     {
         if (!string.IsNullOrWhiteSpace(description))
         {
-            Query.Where(todo => todo.Description.Contains(description));
+            if (description.Contains('*'))
+            {
+                var searchDescription = description.Replace("*", "%");
+                Query.Search(todo => todo.Description, searchDescription);
+            }
+            else
+            {
+                Query.Where(todo => todo.Description == description);
+            }
         }
         if (fromDueDate.HasValue)
         {

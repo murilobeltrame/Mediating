@@ -3,24 +3,26 @@ using Ardalis.Specification;
 using Domain.TodoAggregate;
 using Domain.TodoAggregate.Commands;
 using Domain.TodoAggregate.Specifications;
+using Domain.TodoAggregate.Validators;
 
 using FluentValidation.TestHelper;
 
 using NSubstitute;
 
-namespace Domain.Tests;
+namespace Domain.Tests.TodoAggregate.Validators;
 
-public class CompleteTodoCommandValidatorTests
+public class UpdateTodoCommandValidatorTests
 {
     [Fact]
-    public async Task Validate_WithValidIdAndCompletedAt_Succeeds()
+    public async Task Validate_WithValidIdAndExistingTodo_Succeeds()
     {
         // Arrange
         var repository = Substitute.For<IRepositoryBase<Todo>>();
+        var todoId = Guid.NewGuid();
         repository.AnyAsync(Arg.Any<ISpecification<Todo>>(), Arg.Any<CancellationToken>()).Returns(true);
 
-        var validator = new CompleteTodoCommandValidator(repository);
-        var command = new CompleteTodoCommand { Id = Guid.NewGuid(), CompletedAt = DateTime.Now.AddMinutes(-5) };
+        var validator = new UpdateTodoCommandValidator(repository);
+        var command = new UpdateTodoCommand { Id = todoId, Description = "Updated" };
 
         // Act
         var result = await validator.TestValidateAsync(command);
@@ -34,8 +36,8 @@ public class CompleteTodoCommandValidatorTests
     {
         // Arrange
         var repository = Substitute.For<IRepositoryBase<Todo>>();
-        var validator = new CompleteTodoCommandValidator(repository);
-        var command = new CompleteTodoCommand { Id = Guid.Empty, CompletedAt = DateTime.Now };
+        var validator = new UpdateTodoCommandValidator(repository);
+        var command = new UpdateTodoCommand { Id = Guid.Empty, Description = "Updated" };
 
         // Act
         var result = await validator.TestValidateAsync(command);
@@ -52,8 +54,8 @@ public class CompleteTodoCommandValidatorTests
         var repository = Substitute.For<IRepositoryBase<Todo>>();
         repository.AnyAsync(Arg.Any<ISpecification<Todo>>(), Arg.Any<CancellationToken>()).Returns(false);
 
-        var validator = new CompleteTodoCommandValidator(repository);
-        var command = new CompleteTodoCommand { Id = Guid.NewGuid(), CompletedAt = DateTime.Now };
+        var validator = new UpdateTodoCommandValidator(repository);
+        var command = new UpdateTodoCommand { Id = Guid.NewGuid(), Description = "Updated" };
 
         // Act
         var result = await validator.TestValidateAsync(command);
@@ -65,34 +67,14 @@ public class CompleteTodoCommandValidatorTests
     }
 
     [Fact]
-    public async Task Validate_WithFutureCompletedAt_Fails()
+    public async Task Validate_WithOnlyDescriptionUpdate_Succeeds()
     {
         // Arrange
         var repository = Substitute.For<IRepositoryBase<Todo>>();
         repository.AnyAsync(Arg.Any<ISpecification<Todo>>(), Arg.Any<CancellationToken>()).Returns(true);
 
-        var validator = new CompleteTodoCommandValidator(repository);
-        var futureTime = DateTime.Now.AddSeconds(5);
-        var command = new CompleteTodoCommand { Id = Guid.NewGuid(), CompletedAt = futureTime };
-
-        // Act
-        var result = await validator.TestValidateAsync(command);
-
-        // Assert
-        result.ShouldHaveValidationErrorFor(c => c.CompletedAt);
-        Assert.Contains("CompletedAt cannot be in the future.", result.Errors.Select(e => e.ErrorMessage));
-    }
-
-    [Fact]
-    public async Task Validate_WithPastTimeCompletedAt_Succeeds()
-    {
-        // Arrange
-        var repository = Substitute.For<IRepositoryBase<Todo>>();
-        repository.AnyAsync(Arg.Any<ISpecification<Todo>>(), Arg.Any<CancellationToken>()).Returns(true);
-
-        var validator = new CompleteTodoCommandValidator(repository);
-        var pastTime = DateTime.Now.AddSeconds(-10);
-        var command = new CompleteTodoCommand { Id = Guid.NewGuid(), CompletedAt = pastTime };
+        var validator = new UpdateTodoCommandValidator(repository);
+        var command = new UpdateTodoCommand { Id = Guid.NewGuid(), Description = "New Description" };
 
         // Act
         var result = await validator.TestValidateAsync(command);
@@ -102,15 +84,14 @@ public class CompleteTodoCommandValidatorTests
     }
 
     [Fact]
-    public async Task Validate_WithPastCompletedAt_Succeeds()
+    public async Task Validate_WithOnlyDueDateUpdate_Succeeds()
     {
         // Arrange
         var repository = Substitute.For<IRepositoryBase<Todo>>();
         repository.AnyAsync(Arg.Any<ISpecification<Todo>>(), Arg.Any<CancellationToken>()).Returns(true);
 
-        var validator = new CompleteTodoCommandValidator(repository);
-        var pastTime = DateTime.Now.AddMinutes(-30);
-        var command = new CompleteTodoCommand { Id = Guid.NewGuid(), CompletedAt = pastTime };
+        var validator = new UpdateTodoCommandValidator(repository);
+        var command = new UpdateTodoCommand { Id = Guid.NewGuid(), DueDate = DateTime.Now.AddDays(5) };
 
         // Act
         var result = await validator.TestValidateAsync(command);
@@ -120,15 +101,19 @@ public class CompleteTodoCommandValidatorTests
     }
 
     [Fact]
-    public async Task Validate_WithPastDefaultTime_Succeeds()
+    public async Task Validate_WithBothDescriptionAndDueDate_Succeeds()
     {
         // Arrange
         var repository = Substitute.For<IRepositoryBase<Todo>>();
         repository.AnyAsync(Arg.Any<ISpecification<Todo>>(), Arg.Any<CancellationToken>()).Returns(true);
 
-        var validator = new CompleteTodoCommandValidator(repository);
-        var pastTime = DateTime.Now.AddSeconds(-5);
-        var command = new CompleteTodoCommand { Id = Guid.NewGuid(), CompletedAt = pastTime };
+        var validator = new UpdateTodoCommandValidator(repository);
+        var command = new UpdateTodoCommand
+        {
+            Id = Guid.NewGuid(),
+            Description = "Updated",
+            DueDate = DateTime.Now.AddDays(10)
+        };
 
         // Act
         var result = await validator.TestValidateAsync(command);
@@ -138,23 +123,20 @@ public class CompleteTodoCommandValidatorTests
     }
 
     [Fact]
-    public async Task Validate_WithAllErrorsPresent_ReportsAllErrors()
+    public async Task Validate_WithNeitherDescriptionNorDueDate_Succeeds()
     {
         // Arrange
         var repository = Substitute.For<IRepositoryBase<Todo>>();
-        repository.AnyAsync(Arg.Any<ISpecification<Todo>>(), Arg.Any<CancellationToken>()).Returns(false);
+        repository.AnyAsync(Arg.Any<ISpecification<Todo>>(), Arg.Any<CancellationToken>()).Returns(true);
 
-        var validator = new CompleteTodoCommandValidator(repository);
-        var futureTime = DateTime.Now.AddSeconds(10);
-        var command = new CompleteTodoCommand { Id = Guid.Empty, CompletedAt = futureTime };
+        var validator = new UpdateTodoCommandValidator(repository);
+        var command = new UpdateTodoCommand { Id = Guid.NewGuid() };
 
         // Act
         var result = await validator.TestValidateAsync(command);
 
         // Assert
-        Assert.True(result.Errors.Count >= 2);
-        Assert.Contains(result.Errors, e => e.PropertyName == nameof(CompleteTodoCommand.Id));
-        Assert.Contains(result.Errors, e => e.PropertyName == nameof(CompleteTodoCommand.CompletedAt));
+        result.ShouldNotHaveAnyValidationErrors();
     }
 
     [Fact]
@@ -164,9 +146,9 @@ public class CompleteTodoCommandValidatorTests
         var repository = Substitute.For<IRepositoryBase<Todo>>();
         repository.AnyAsync(Arg.Any<ISpecification<Todo>>(), Arg.Any<CancellationToken>()).Returns(true);
 
-        var validator = new CompleteTodoCommandValidator(repository);
+        var validator = new UpdateTodoCommandValidator(repository);
         var todoId = Guid.NewGuid();
-        var command = new CompleteTodoCommand { Id = todoId };
+        var command = new UpdateTodoCommand { Id = todoId };
 
         // Act
         await validator.TestValidateAsync(command);
@@ -178,20 +160,17 @@ public class CompleteTodoCommandValidatorTests
     }
 
     [Fact]
-    public async Task Validate_WithVeryOldCompletedAt_Succeeds()
+    public async Task Validate_WithRepositoryException_ThrowsException()
     {
         // Arrange
         var repository = Substitute.For<IRepositoryBase<Todo>>();
-        repository.AnyAsync(Arg.Any<ISpecification<Todo>>(), Arg.Any<CancellationToken>()).Returns(true);
+        repository.AnyAsync(Arg.Any<ISpecification<Todo>>(), Arg.Any<CancellationToken>())
+            .Returns(Task.FromException<bool>(new Exception("Database error")));
 
-        var validator = new CompleteTodoCommandValidator(repository);
-        var veryOldTime = DateTime.Now.AddDays(-365);
-        var command = new CompleteTodoCommand { Id = Guid.NewGuid(), CompletedAt = veryOldTime };
+        var validator = new UpdateTodoCommandValidator(repository);
+        var command = new UpdateTodoCommand { Id = Guid.NewGuid() };
 
-        // Act
-        var result = await validator.TestValidateAsync(command);
-
-        // Assert
-        result.ShouldNotHaveAnyValidationErrors();
+        // Act & Assert
+        await Assert.ThrowsAsync<Exception>(() => validator.TestValidateAsync(command));
     }
 }

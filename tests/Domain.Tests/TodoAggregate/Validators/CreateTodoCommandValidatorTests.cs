@@ -1,8 +1,9 @@
-using Domain.TodoAggregate;
 using Domain.TodoAggregate.Commands;
+using Domain.TodoAggregate.Validators;
+
 using FluentValidation.TestHelper;
 
-namespace Domain.Tests;
+namespace Domain.Tests.TodoAggregate.Validators;
 
 public class CreateTodoCommandValidatorTests
 {
@@ -61,7 +62,7 @@ public class CreateTodoCommandValidatorTests
 
         // Assert
         result.ShouldHaveValidationErrorFor(c => c.Description);
-        Assert.Contains("Description is required and must be at least 5 characters long.", 
+        Assert.Contains("Description is required and must be at least 5 characters long.",
             result.Errors.Select(e => e.ErrorMessage));
     }
 
@@ -91,7 +92,7 @@ public class CreateTodoCommandValidatorTests
 
         // Assert
         result.ShouldHaveValidationErrorFor(c => c.Description);
-        Assert.Contains("Description is required and must be at least 5 characters long.", 
+        Assert.Contains("Description is required and must be at least 5 characters long.",
             result.Errors.Select(e => e.ErrorMessage));
     }
 
@@ -142,8 +143,8 @@ public class CreateTodoCommandValidatorTests
     {
         // Arrange
         var validator = new CreateTodoCommandValidator();
-        var command = new CreateTodoCommand 
-        { 
+        var command = new CreateTodoCommand
+        {
             Description = "Valid Todo",
             DueDate = DateTime.Now.AddDays(5)
         };
@@ -160,8 +161,8 @@ public class CreateTodoCommandValidatorTests
     {
         // Arrange
         var validator = new CreateTodoCommandValidator();
-        var command = new CreateTodoCommand 
-        { 
+        var command = new CreateTodoCommand
+        {
             Description = "Valid Todo",
             DueDate = DateTime.Now.AddDays(-5)
         };

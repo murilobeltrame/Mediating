@@ -1,14 +1,15 @@
 ﻿using Ardalis.Specification;
 
+using Domain.TodoAggregate.Commands;
 using Domain.TodoAggregate.Specifications;
 
 using FluentValidation;
 
-namespace Domain.TodoAggregate.Commands;
+namespace Domain.TodoAggregate.Validators;
 
-public class UpdateTodoCommandValidator : AbstractValidator<UpdateTodoCommand>
+public class CompleteTodoCommandValidator : AbstractValidator<CompleteTodoCommand>
 {
-    public UpdateTodoCommandValidator(IRepositoryBase<Todo> repository)
+    public CompleteTodoCommandValidator(IRepositoryBase<Todo> repository)
     {
         RuleFor(c => c.Id)
             .NotEmpty()
@@ -17,5 +18,9 @@ public class UpdateTodoCommandValidator : AbstractValidator<UpdateTodoCommand>
         RuleFor(c => c.Id)
             .MustAsync(async (id, token) => await repository.AnyAsync(new TodoByIdSpecification(id), token))
             .WithMessage("Todo with the specified Id does not exist.");
+
+        RuleFor(c => c.CompletedAt)
+            .LessThanOrEqualTo(DateTime.Now)
+            .WithMessage("CompletedAt cannot be in the future.");
     }
 }

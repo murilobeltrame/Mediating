@@ -1,11 +1,15 @@
 using Ardalis.Specification;
+
 using Domain.TodoAggregate;
 using Domain.TodoAggregate.Commands;
 using Domain.TodoAggregate.Specifications;
+using Domain.TodoAggregate.Validators;
+
 using FluentValidation.TestHelper;
+
 using NSubstitute;
 
-namespace Domain.Tests;
+namespace Domain.Tests.TodoAggregate.Validators;
 
 public class RemoveTodoCommandValidatorTests
 {
@@ -57,7 +61,7 @@ public class RemoveTodoCommandValidatorTests
 
         // Assert
         result.ShouldHaveValidationErrorFor(c => c.Id);
-        Assert.Contains("Todo with the specified Id does not exist.", 
+        Assert.Contains("Todo with the specified Id does not exist.",
             result.Errors.Select(e => e.ErrorMessage));
     }
 

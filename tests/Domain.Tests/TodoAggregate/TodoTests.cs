@@ -1,7 +1,7 @@
 using Domain.TodoAggregate;
 using Domain.TodoAggregate.Commands;
 
-namespace Domain.Tests;
+namespace Domain.Tests.TodoAggregate;
 
 public class TodoTests
 {
