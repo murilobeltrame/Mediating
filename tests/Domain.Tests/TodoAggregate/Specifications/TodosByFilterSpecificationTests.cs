@@ -71,4 +71,42 @@ public class TodosByFilterSpecificationTests
 
         Assert.Equal(howManyExpected, result.Count());
     }
+
+    private static readonly DateTime
+        FromDueDate = DateTime.Now.AddDays(-10),
+        ToDueDate = DateTime.Now.AddDays(10);
+
+    public static TheoryData<DateTime?, DateTime?, int> DateTimeRangeData =>
+        new()
+        {
+            { null, null, 15 },
+            { FromDueDate, ToDueDate, 5 },
+            { null, ToDueDate, 10 },
+            { FromDueDate, null, 10 },
+        };
+
+    [Theory, MemberData(nameof(DateTimeRangeData))]
+
+    public void TodoByFilterSpecification_WhenSearchingDateTimeRange_ReturnsMatchingRecords(DateTime? fromDueDate, DateTime? toDueDate, int howManyExpected)
+    {
+        List<Todo> records = [];
+        records.AddRange(new AutoFaker<Todo>()
+            .RuleFor(p => p.Removed, false)
+            .RuleFor(p => p.DueDate, f => f.Date.Between(FromDueDate, ToDueDate))
+            .Generate(5));
+        records.AddRange(new AutoFaker<Todo>()
+            .RuleFor(p => p.Removed, false)
+            .RuleFor(p => p.DueDate, f => f.Date.Between(FromDueDate.AddDays(-10), FromDueDate.AddDays(-1)))
+            .Generate(5));
+        records.AddRange(new AutoFaker<Todo>()
+            .RuleFor(p => p.Removed, false)
+            .RuleFor(p => p.DueDate, f => f.Date.Between(ToDueDate.AddDays(1), ToDueDate.AddDays(10)))
+            .Generate(5));
+
+        var spec = new TodosByFilterSpecification(1, 50, fromDueDate: fromDueDate, toDueDate: toDueDate);
+
+        var result = spec.Evaluate(records);
+
+        Assert.Equal(howManyExpected, result.Count());
+    }
 }
