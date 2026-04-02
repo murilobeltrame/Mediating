@@ -488,3 +488,7 @@ $RECYCLE.BIN/
 # Duscarding Stryker results
 
 **/StrykerOutput/
+
+# Ignoring Coverage Reports
+
+/coveragereport
