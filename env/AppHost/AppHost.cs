@@ -14,7 +14,7 @@ builder.AddProject<Rest_Mediatr>("api-mediatr")
 
 builder.AddProject<Rest_Wolverine>("api-wolverine")
     .WaitFor(database)
-    .WithReference(database); ;
+    .WithReference(database);
 
 builder.AddProject<Migrations_Worker>("migrations-worker")
     .WaitFor(database)

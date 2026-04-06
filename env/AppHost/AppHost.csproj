@@ -1,4 +1,4 @@
-<Project Sdk="Aspire.AppHost.Sdk/13.2.0">
+﻿<Project Sdk="Aspire.AppHost.Sdk/13.2.0">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Rest.Mediatr\Rest.Mediatr.csproj" />
-    <ProjectReference Include="..\..\src\Rest.Wolverine\Rest.Wolverine.csproj" />
+    <ProjectReference Include="..\..\src\Mediatr\Rest.Mediatr\Rest.Mediatr.csproj" Label="Mediatr_Rest" />
+    <ProjectReference Include="..\..\src\Wolverine\Rest.Wolverine\Rest.Wolverine.csproj" Label="Wolverine_Rest" />
     <ProjectReference Include="..\..\tools\Migrations.Worker\Migrations.Worker.csproj" />
   </ItemGroup>
 
