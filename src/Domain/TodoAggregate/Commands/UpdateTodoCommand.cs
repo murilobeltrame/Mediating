@@ -8,5 +8,5 @@ public class UpdateTodoCommand
     public string? Description { get; init; }
     public DateTime? DueDate { get; init; }
     public string? Location { get; init; }
-    public Coordinate? Coordinate { get; init; }
+    public Coordinates? Coordinate { get; init; }
 };

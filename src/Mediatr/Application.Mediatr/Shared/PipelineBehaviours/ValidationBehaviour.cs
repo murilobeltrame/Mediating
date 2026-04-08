@@ -1,12 +1,12 @@
-﻿
-using FluentValidation;
+﻿using FluentValidation;
 
 using MediatR;
 
-namespace Rest.Mediatr.Shared;
+namespace Application.Mediatr.Shared.PipelineBehaviours;
 
-public class ValidationBehaviour<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest, TResponse>
-     where TRequest : notnull
+public class ValidationBehaviour<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) :
+    IPipelineBehavior<TRequest, TResponse>
+    where TRequest : notnull
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {

@@ -1,3 +1,3 @@
 ﻿namespace Domain.TodoAggregate.ValueObjects;
 
-public record Coordinate(decimal Latitude, decimal Longitude);
+public record Coordinates(decimal Latitude, decimal Longitude);

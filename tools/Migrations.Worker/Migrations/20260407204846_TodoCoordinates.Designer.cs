@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Migrations.Worker;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Migrations.Worker.Migrations
 {
     [DbContext(typeof(MigratonContext))]
-    partial class MigratonContextModelSnapshot : ModelSnapshot
+    [Migration("20260407204846_TodoCoordinates")]
+    partial class TodoCoordinates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +57,7 @@ namespace Migrations.Worker.Migrations
 
             modelBuilder.Entity("Domain.TodoAggregate.Todo", b =>
                 {
-                    b.OwnsOne("Domain.TodoAggregate.ValueObjects.Coordinates", "Coordinates", b1 =>
+                    b.OwnsOne("Domain.TodoAggregate.ValueObjects.Coordinate", "Coordinate", b1 =>
                         {
                             b1.Property<Guid>("TodoId")
                                 .HasColumnType("uuid");
@@ -73,7 +76,7 @@ namespace Migrations.Worker.Migrations
                                 .HasForeignKey("TodoId");
                         });
 
-                    b.Navigation("Coordinates");
+                    b.Navigation("Coordinate");
                 });
 #pragma warning restore 612, 618
         }

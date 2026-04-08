@@ -14,7 +14,7 @@ public class Todo
     public bool Removed { get; private set; } = false;
     public string? Location { get; private set; }
     public bool? Remote => Location?.Contains("://");
-    public Coordinate? Coordinate { get; private set; }
+    public Coordinates? Coordinates { get; private set; }
 
 #pragma warning disable CS8618 // Required by EF.
     private Todo() { }
@@ -25,7 +25,7 @@ public class Todo
         Description = command.Description;
         DueDate = command.DueDate;
         Location = command.Location;
-        Coordinate = command.Coordinate;
+        Coordinates = command.Coordinates;
     }
 
     public Todo Update(UpdateTodoCommand command)
@@ -35,7 +35,7 @@ public class Todo
         if (!string.IsNullOrWhiteSpace(command.Location))
         {
             Location = command.Location;
-            Coordinate = command.Coordinate;
+            Coordinates = command.Coordinate;
         }
         return this;
     }

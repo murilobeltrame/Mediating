@@ -1,4 +1,5 @@
 using Application.Mediatr;
+using Application.Mediatr.Shared.PipelineBehaviours;
 
 using Ardalis.Specification;
 
@@ -17,6 +18,9 @@ builder.Services
     .AddMediatR(cfg =>
     {
         cfg.RegisterServicesFromAssemblyContaining<IApplication>();
+        // Order Matters, Enrichment should be before Validation,
+        // otherwise validation will be executed before enrichment and it will fail because of missing data that should be added in enrichment.
+        cfg.AddOpenBehavior(typeof(EnrichmentBehaviour<,>));
         cfg.AddOpenBehavior(typeof(ValidationBehaviour<,>));
     })
     .AddOpenApi();

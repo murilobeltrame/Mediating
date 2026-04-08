@@ -1,10 +1,12 @@
-﻿using Ardalis.Specification;
+﻿using Application.Mediatr.TodoAggregate.Commands;
+
+using Ardalis.Specification;
 
 using Domain.TodoAggregate;
 
 using MediatR;
 
-namespace Application.Mediatr.TodoAggregate.Commands;
+namespace Application.Mediatr.TodoAggregate;
 
 internal class CommandHandlers(IRepositoryBase<Todo> repository) :
     IRequestHandler<CreateTodoCommand, Todo>,

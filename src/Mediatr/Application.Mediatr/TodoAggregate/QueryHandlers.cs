@@ -1,11 +1,13 @@
-﻿using Ardalis.Specification;
+﻿using Application.Mediatr.TodoAggregate.Queries;
+
+using Ardalis.Specification;
 
 using Domain.TodoAggregate;
 using Domain.TodoAggregate.Specifications;
 
 using MediatR;
 
-namespace Application.Mediatr.TodoAggregate.Queries;
+namespace Application.Mediatr.TodoAggregate;
 
 internal class QueryHandlers(IRepositoryBase<Todo> repository) :
     IRequestHandler<GetTodoByIdQuery, Todo>,

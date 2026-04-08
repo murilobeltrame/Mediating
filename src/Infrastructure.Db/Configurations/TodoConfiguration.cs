@@ -24,5 +24,7 @@ internal class TodoConfiguration : IEntityTypeConfiguration<Todo>
 
         builder.Property(t => t.CompletedAt)
             .HasColumnType("timestamp without time zone");
+
+        builder.OwnsOne(t => t.Coordinates);
     }
 }
