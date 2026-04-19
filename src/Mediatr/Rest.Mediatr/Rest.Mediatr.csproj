@@ -24,7 +24,7 @@
     <ProjectReference Include="..\..\..\env\ServiceDefaults\ServiceDefaults.csproj" />
     <ProjectReference Include="..\..\Infrastructure.Db\Infrastructure.Db.csproj" />
     <ProjectReference Include="..\Application.Mediatr\Application.Mediatr.csproj" />
-    <ProjectReference Include="..\..\..\libs\AspNetShared\AspNetShared.csproj" />
+    <ProjectReference Include="..\..\..\libs\AspNetCore.Shared\AspNetCore.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@ using Application.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace AspNetShared;
+namespace AspNetCore.Shared;
 
 public static class ServiceCollectionExtensions
 {

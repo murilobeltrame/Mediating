@@ -21,8 +21,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Acl.GeolocationService\Acl.GeolocationService.csproj" />
-    <ProjectReference Include="..\..\Application\Application.csproj" />
     <ProjectReference Include="..\..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\..\libs\Application.Shared\Application.Shared.csproj" />
   </ItemGroup>
 
 </Project>

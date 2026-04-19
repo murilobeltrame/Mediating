@@ -5,7 +5,7 @@ using Application.Mediatr.Shared.PipelineBehaviours;
 
 using Ardalis.Specification;
 
-using AspNetShared;
+using AspNetCore.Shared;
 
 using Domain;
 
