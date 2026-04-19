@@ -3,6 +3,9 @@
     <Project Path="env/AppHost/AppHost.csproj" />
     <Project Path="env/ServiceDefaults/ServiceDefaults.csproj" />
   </Folder>
+  <Folder Name="/libs/">
+    <Project Path="libs/AspNetShared/AspNetShared.csproj" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/Acl.GeolocationService/Acl.GeolocationService.csproj" Id="6c1d4e66-11e6-4934-8fa8-8982bc7a27c4" />
     <Project Path="src/Application/Application.csproj" Id="19a18d07-101a-4748-a3d8-4557d3b20772" />

@@ -19,6 +19,7 @@ public class EnrichmentBehaviour<TRequest, TResponse>(
         logger.LogDebug("Calling Enrichment Behaviour");
 
         await Task.WhenAll(enrichers.Select(e => e.EnrichAsync(request, cancellationToken)));
+        // TODO: Handle errors in bunch
         
         return await next(cancellationToken);
     }
