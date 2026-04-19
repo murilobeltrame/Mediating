@@ -12,7 +12,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "description": "Example Todo"
+  "description": "Example Todo",
+  "location": "Somewhere over the rainbow"
 }
 
 ###

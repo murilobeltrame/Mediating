@@ -12,12 +12,14 @@ public class CreateTodoCommandEnricher(ILocationService locationService) : IEnri
 
     public async Task<CreateTodoCommand> EnrichGeoLocation(CreateTodoCommand item, CancellationToken cancellationToken)
     {
-        if (!string.IsNullOrWhiteSpace(item.Location) &&
-            !item.Location.Contains("://", StringComparison.OrdinalIgnoreCase))
-        {
-            var location = await locationService.GetLocationAsync(item.Location!, cancellationToken);
-            item.WithCoordinates(location.Latitude, location.Longitude);
-        }
+        var noLocationOrRemote = 
+            string.IsNullOrWhiteSpace(item.Location) ||
+            item.Location.Contains("://", StringComparison.OrdinalIgnoreCase);
+
+        if (noLocationOrRemote) return item;
+
+        var location = await locationService.GetLocationAsync(item.Location!, cancellationToken);
+        item.WithCoordinates(location.Latitude, location.Longitude);
         return item;
     }
 }

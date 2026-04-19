@@ -1,7 +1,14 @@
+using Acl.GeolocationService;
+
 using Application.Mediatr;
 using Application.Mediatr.Shared.PipelineBehaviours;
+using Application.Mediatr.TodoAggregate.Enrichers;
 
 using Ardalis.Specification;
+
+using Domain;
+
+using FluentValidation;
 
 using Infrastructure.Db;
 
@@ -15,6 +22,9 @@ builder.AddAzureNpgsqlDbContext<ApplicationContext>("database");
 
 builder.Services
     .AddTransient(typeof(IRepositoryBase<>), typeof(Repository<>))
+    .AddScoped<ILocationService, LocationService>()
+    .AddValidatorsFromAssembly(typeof(IDomain).Assembly)
+    .AddEnrichersFromAssembly(typeof(IApplication).Assembly)
     .AddMediatR(cfg =>
     {
         cfg.RegisterServicesFromAssemblyContaining<IApplication>();
