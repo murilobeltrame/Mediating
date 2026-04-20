@@ -19,7 +19,6 @@ builder.AddAzureNpgsqlDbContext<ApplicationContext>("database");
 builder.Services
     .AddWolverine(o =>
     {
-        //o.Discovery.IncludeAssembly(typeof(IApplication).Assembly);
         o.ApplicationAssembly = typeof(IApplication).Assembly;
         o.Durability.Mode = DurabilityMode.MediatorOnly;
         o.UseFluentValidation();

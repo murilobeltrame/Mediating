@@ -1,16 +1,16 @@
-﻿using Acl.GeolocationService;
+using Acl.GeolocationService;
 
 using Application.Mediatr.TodoAggregate.Commands;
 using Application.Shared;
 
 namespace Application.Mediatr.TodoAggregate.Enrichers;
 
-public class CreateTodoCommandEnricher(ILocationService locationService) : IEnricher<CreateTodoCommand>
+public class UpdateTodoCommandEnricher(ILocationService locationService) : IEnricher<UpdateTodoCommand>
 {
-    public async Task<CreateTodoCommand> EnrichAsync(CreateTodoCommand item, CancellationToken cancellationToken) =>
+    public async Task<UpdateTodoCommand> EnrichAsync(UpdateTodoCommand item, CancellationToken cancellationToken) =>
         await EnrichGeoLocation(item, cancellationToken);
 
-    protected async Task<CreateTodoCommand> EnrichGeoLocation(CreateTodoCommand item, CancellationToken cancellationToken)
+    protected async Task<UpdateTodoCommand> EnrichGeoLocation(UpdateTodoCommand item, CancellationToken cancellationToken)
     {
         var noLocationOrRemote = 
             string.IsNullOrWhiteSpace(item.Location) ||
